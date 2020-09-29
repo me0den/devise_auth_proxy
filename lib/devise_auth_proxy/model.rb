@@ -7,7 +7,6 @@ module Devise
       extend ActiveSupport::Concern
 
       included do
-        attr_reader :current_password, :password
         def self.find_for_auth_proxy_authentication(env)
           manager = DeviseAuthProxy::Manager.new(self, env)
           manager.find_or_create_user

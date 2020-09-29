@@ -3,7 +3,7 @@ require 'devise_auth_proxy/version'
 
 module DeviseAuthProxy
   class << self
-    attr_accessor :env_key, :auto_create, :auto_update, :auth_key, :attribute_map, :logout_url
+    attr_accessor :env_key, :auto_create, :auto_update, :auth_key, :attribute_map, :default_role, :logout_url
   end
 
   # request.env key for remote user name
@@ -23,6 +23,9 @@ module DeviseAuthProxy
   # Map of User model attributes to request.env keys for updating a local user when auto-creation is enabled.
   self.attribute_map = {}
 
+  # Set default role for new user.
+  self.default_role = []
+
   # Settings for redirecting to the remote user logout URL
   # Enable by including DeviseAuthProxy::Controllers::Helpers in ApplicationController
   # (it overrides Devise's after_sign_out_path_for method).
@@ -32,7 +35,7 @@ module DeviseAuthProxy
     yield self
   end
 
-  def self.remote_user_id env
+  def self.proxy_user_id(env)
     case env_key
     when Proc
       env_key.call(env)

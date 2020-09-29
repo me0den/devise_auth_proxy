@@ -27,31 +27,35 @@ module DeviseAuthProxy
     end
 
     def create_user
-      unless Devise.mappings[:user].strategies.include?(:database_authenticatable)
+      unless Devise.mappings[:admin_user].strategies.include?(:database_authenticatable)
         return klass.create(user_criterion)
       end
 
       random_password = SecureRandom.hex(16)
-      attrs = user_criterion.merge({password: random_password, password_confirmation: random_password})
+      attrs = user_criterion.merge({
+                                       password: random_password,
+                                       password_confirmation: random_password,
+                                       roles: DeviseAuthProxy.default_role
+                                   })
       klass.create(attrs)
     end
 
     def update_user(user)
-      user.update_attributes(remote_user_attributes)
+      user.update_attributes(proxy_user_attributes)
     end
 
     protected
 
-    def remote_user_attributes
+    def proxy_user_attributes
       DeviseAuthProxy.attribute_map.inject({}) { |h, (k, v)| h[k] = env[v] if env.has_key?(v); h }
     end
 
     def user_criterion
-      {auth_key => remote_user_id}
+      {auth_key => proxy_user_id}
     end
 
-    def remote_user_id
-      DeviseAuthProxy.remote_user_id(env)
+    def proxy_user_id
+      DeviseAuthProxy.proxy_user_id(env)
     end
 
     def auth_key
