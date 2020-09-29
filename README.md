@@ -1,4 +1,4 @@
-# Devise::AuthProxy
+# DeviseAuthProxy
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/devise/auth_proxy`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'devise-auth_proxy'
+gem 'devise_auth_proxy'
 ```
 
 And then execute:
@@ -18,11 +18,35 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install devise-auth_proxy
+    $ gem install devise_auth_proxy
 
 ## Usage
 
-TODO: Write usage instructions here
+Invoke hook 
+* Add `:auth_proxy_authenticatable` symbol to `devise` statement in User model, before other authentication strategies (e.g., `:database_authenticatable`).
+
+Configuaration options:
+* `env_key` - String (default: 'AUTH_PROXY'). Request environment key for the remote user id.
+* `attribute_map` - Hash (default: {}). Map of User model attributes to request environment keys for updating the local user when auto-creation is enabled.
+* `auto_create` - Boolean (default: false). Whether to auto-create a local user from the remote user attributes. Note: Also requires adding the Warden callbacks as shown below.
+* `auto_update` - Boolean (default: false). Whether to auto-update authenticated user attributes from remote user attributes.
+* `logout_url` - String (default: '/'). For redirecting to a remote user logout URL after signing out of the Rails application. Include DeviseRemoteUser::ControllerBehavior in your application controller to enable (by overriding Devise's after_sign_out_path_for).
+
+
+Set options in a Rails initializer (e.g., `config/intializers/devise.rb`):
+
+```
+require 'devise_auth_proxy'
+
+DeviseAuthProxy.configure do |config|
+  config.env_key = 'HTTP_AUTH_PROXY'
+  config.auto_create = true
+  config.auto_update = true
+  config.attribute_map = { email: 'mail' }
+  config.logout_url = "http://localhost:3000/logout"
+end
+```
+
 
 ## Development
 

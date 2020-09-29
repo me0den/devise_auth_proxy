@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "For authentication through proxy auth"
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
-  # spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/me0den/devise_auth_proxy"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
