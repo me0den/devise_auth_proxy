@@ -13,9 +13,8 @@ module Devise
 
         return fail(:invalid) unless resource
 
-        if resource.persisted?
-
-        end
+        remember_me(resource)
+        success!(resource)
       end
 
     end

@@ -37,6 +37,8 @@ module DeviseAuthProxy
                                        password_confirmation: random_password,
                                        roles: DeviseAuthProxy.default_role
                                    })
+
+
       klass.create(attrs)
     end
 
