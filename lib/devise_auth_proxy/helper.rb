@@ -1,5 +1,5 @@
 module DeviseAuthProxy
-  module Controller
+  module Helper
 
     # Modify session controller after user log out.
     # To redirect user to a custom url.

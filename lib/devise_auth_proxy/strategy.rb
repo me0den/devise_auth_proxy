@@ -13,7 +13,7 @@ module Devise
 
         return fail(:invalid) unless resource
 
-        remember_me(resource)
+        # remember_me(resource)
         success!(resource)
       end
 
