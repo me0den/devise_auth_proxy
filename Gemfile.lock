@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    devise_auth_proxy (0.1.19)
+    devise_auth_proxy (0.1.20)
       devise
 
 GEM
