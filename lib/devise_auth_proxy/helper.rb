@@ -1,3 +1,5 @@
+require 'service/foss_identity'
+
 module DeviseAuthProxy
   module Helper
 
