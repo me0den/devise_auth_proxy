@@ -3,7 +3,7 @@ require 'devise_auth_proxy/version'
 
 module DeviseAuthProxy
   class << self
-    attr_accessor :env_key, :auto_create, :auto_update, :auth_key, :attribute_map, :default_role, :logout_url
+    attr_accessor :env_key, :auto_create, :auto_update, :auth_key, :attribute_map, :default_role, :logout_service, :logout_url
   end
 
   # request.env key for remote user name
@@ -25,6 +25,9 @@ module DeviseAuthProxy
 
   # Set default role for new user.
   self.default_role = []
+
+  # Set the service using to logout.
+  self.logout_service = nil
 
   # Settings for redirecting to the remote user logout URL
   # Enable by including DeviseAuthProxy::Controllers::Helpers in ApplicationController

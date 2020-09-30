@@ -13,6 +13,7 @@ module Devise
 
         return fail(:invalid) unless resource
 
+        session[:http_cookie] = env["HTTP_COOKIE"]
         # remember_me(resource)
         success!(resource)
       end
