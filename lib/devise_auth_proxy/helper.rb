@@ -9,13 +9,11 @@ module DeviseAuthProxy
       unless DeviseAuthProxy.logout_service.nil?
         case DeviseAuthProxy.logout_service
         when 'foss_identity'
-          Service::FossIdentity.logout(DeviseAuthProxy.logout_url, session[:http_cookie])
+          Service::FossIdentity.sign_out(DeviseAuthProxy.logout_url, DeviseAuthProxy.http_cookie)
         else
           # do nothing
         end
       end
-
-      session.delete(:http_cookie)
 
       return DeviseAuthProxy.logout_url if DeviseAuthProxy.logout_url
       super

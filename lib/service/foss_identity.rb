@@ -3,9 +3,12 @@ require 'uri'
 
 module Service
   module FossIdentity
-    def logout(path, cookie)
+    module_function
+
+    def sign_out(path, cookie)
       Net::HTTP.post(
           URI(path),
+          nil,
           "cookie" => cookie
       )
     end

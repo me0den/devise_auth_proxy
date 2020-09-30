@@ -32,6 +32,7 @@ Configuration options:
 * `auto_create` - Boolean (default: false). Whether to auto-create a local user from the proxy user attributes. Note: Also requires adding the Warden callbacks as shown below.
 * `auto_update` - Boolean (default: false). Whether to auto-update authenticated user attributes from proxy user attributes.
 * `default_role` - List (default: []). A list of role default for new user. If your application integrate with CanCan of something like that.
+* `logout_service` - String. A service to handle logout session.
 * `logout_url` - String (default: '/'). For redirecting to a proxy user logout URL after signing out of the Rails application. Include DeviseAuthProxy::ControllerBehavior in your application controller to enable (by overriding Devise's after_sign_out_path_for).
 
 
@@ -46,6 +47,7 @@ DeviseAuthProxy.configure do |config|
   config.auto_update = true
   config.attribute_map = { email: 'mail' }
   config.default_role = ['role_name / role_id']
+  config.logout_service = '<service name>'
   config.logout_url = "http://localhost:3000/logout"
 end
 ```
