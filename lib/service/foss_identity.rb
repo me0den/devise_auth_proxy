@@ -6,11 +6,12 @@ module Service
     module_function
 
     def sign_out(path, cookie)
-      Net::HTTP.post(
+      resp = Net::HTTP.post(
           URI(path),
           nil,
-          "cookie" => cookie
+          "Cookie" => cookie
       )
+      resp
     end
   end
 end
