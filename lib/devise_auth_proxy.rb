@@ -4,8 +4,7 @@ require 'devise_auth_proxy/version'
 module DeviseAuthProxy
   class << self
     attr_accessor :env_key, :auto_create, :auto_update, :auth_key,
-                  :attribute_map, :default_role, :logout_service, :logout_url,
-                  :http_cookie
+                  :attribute_map, :default_role, :logout_service, :logout_url
   end
 
   # request.env key for remote user name
@@ -35,8 +34,6 @@ module DeviseAuthProxy
   # Enable by including DeviseAuthProxy::Controllers::Helpers in ApplicationController
   # (it overrides Devise's after_sign_out_path_for method).
   self.logout_url = '/'
-
-  self.http_cookie = nil
 
   def self.configure
     yield self
