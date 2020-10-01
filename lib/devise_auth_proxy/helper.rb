@@ -15,6 +15,8 @@ module DeviseAuthProxy
         end
       end
 
+      return self.request.env['HTTP_REFERER'] if self.request.env['HTTP_REFERER']
+
       super
     end
   end
