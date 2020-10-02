@@ -17,6 +17,10 @@ module Devise
         success!(resource)
       end
 
+      def store?
+        !DeviseAuthProxy.skip_session
+      end
+
     end
   end
 end

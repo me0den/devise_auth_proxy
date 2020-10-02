@@ -4,7 +4,8 @@ require 'devise_auth_proxy/version'
 module DeviseAuthProxy
   class << self
     attr_accessor :env_key, :auto_create, :auto_update, :auth_key,
-                  :attribute_map, :default_role, :logout_service, :logout_url
+                  :attribute_map, :default_role, :logout_service, :logout_url,
+                  :skip_session
   end
 
   # request.env key for remote user name
@@ -34,6 +35,9 @@ module DeviseAuthProxy
   # Enable by including DeviseAuthProxy::Controllers::Helpers in ApplicationController
   # (it overrides Devise's after_sign_out_path_for method).
   self.logout_url = '/'
+
+  # To skip storage login session. Default is false.
+  self.skip_session = false
 
   def self.configure
     yield self
