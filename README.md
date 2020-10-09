@@ -35,7 +35,7 @@ Configuration options:
 * `logout_service` - String. A service to handle logout session.
 * `skip_session` - Boolean (default: false). To skip storage login session.
 * `logout_url` - String (default: '/'). For redirecting to a proxy user logout URL after signing out of the Rails application. Include DeviseAuthProxy::ControllerBehavior in your application controller to enable (by overriding Devise's after_sign_out_path_for).
-
+* `specific_database` - String (default: :disable). For setting a specific database to authenticate.
 
 Set options in a Rails initializer (e.g., `config/intializers/devise.rb`):
 
@@ -51,6 +51,7 @@ DeviseAuthProxy.configure do |config|
   config.logout_service = '<service name>'
   config.skip_session = true
   config.logout_url = "http://localhost:3000/logout"
+  config.specific_database = 'login_database'
 end
 ```
 

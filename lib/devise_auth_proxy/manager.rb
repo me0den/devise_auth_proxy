@@ -23,11 +23,23 @@ module DeviseAuthProxy
     end
 
     def find_user
+      if DeviseAuthProxy.specific_database != :disable
+        klass.with(client: DeviseAuthProxy.specific_database) do |admin|
+          return admin.where(user_criterion).first
+        end
+      end
+
       klass.where(user_criterion).first
     end
 
     def create_user
       unless Devise.mappings[:admin_user].strategies.include?(:database_authenticatable)
+        if DeviseAuthProxy.specific_database != :disable
+          klass.with(client: DeviseAuthProxy.specific_database) do |admin|
+            return admin.create(user_criterion)
+          end
+        end
+
         return klass.create(user_criterion)
       end
 
@@ -38,7 +50,11 @@ module DeviseAuthProxy
                                        roles: DeviseAuthProxy.default_role
                                    })
 
-
+      if DeviseAuthProxy.specific_database != :disable
+        klass.with(client: DeviseAuthProxy.specific_database) do |admin|
+          return admin.create(attrs)
+        end
+      end
       klass.create(attrs)
     end
 

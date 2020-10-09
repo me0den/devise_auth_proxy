@@ -5,7 +5,7 @@ module DeviseAuthProxy
   class << self
     attr_accessor :env_key, :auto_create, :auto_update, :auth_key,
                   :attribute_map, :default_role, :logout_service, :logout_url,
-                  :skip_session
+                  :skip_session, :specific_database
   end
 
   # request.env key for remote user name
@@ -38,6 +38,9 @@ module DeviseAuthProxy
 
   # To skip storage login session. Default is false.
   self.skip_session = false
+
+  # To use a specific database for authenticate.
+  self.specific_database = :disable
 
   def self.configure
     yield self
